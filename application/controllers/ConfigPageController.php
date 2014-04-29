@@ -54,4 +54,13 @@ class ConfigPageController extends Zend_Controller_Action
    
     }
     
+    public function monitoringjobinfoAction()
+    {
+    	//$form = new Application_Form_MonitoringjobInfo();
+    	
+    	//$request = $this->getRequest();
+    	
+    	//$this->view->form = $form;
+    }
+    
 }

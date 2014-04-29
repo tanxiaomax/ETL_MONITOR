@@ -61,6 +61,12 @@ class Function_Shell
             	    stream_set_blocking($errorStream, true);
             	    stream_set_blocking($stream, true);
             	    
+            	    
+            	    if(trim(explode("=", stream_get_contents($errorStream))[1])<>'0')
+            	    {
+            	    	//if the job wasn't compiled...
+            	    	break;
+            	    }
         
              	    
             	    $jobstatus = explode("\n",stream_get_contents($stream));
@@ -70,7 +76,7 @@ class Function_Shell
             	    $jobsinfo[$count][]=$job;
             	    echo $job."\n";
             	    echo $count."\n";
-            	    echo stream_get_contents($errorStream)."\n";
+            	   
             	   
             	    foreach ($jobstatus as $onestatus)
             	    {
@@ -78,9 +84,9 @@ class Function_Shell
             	        $one=substr($onestatus, (strpos($onestatus, ':') + 1),strlen($onestatus));
             	        
             	        if($i == 0)          	        
-            	            $jobsinfo[$count][]=trim($one);   
+            	            $jobsinfo[$count][] = trim($one);   
             	        if($i == 8) 
-            	            $jobsinfo[$count][]=trim($one);
+            	            $jobsinfo[$count][] = trim($one);
             	        if($i == 6)
             	            $jobsinfo[$count][] = trim($one);
             	        
@@ -92,6 +98,7 @@ class Function_Shell
             	    fclose($errorStream);
             	    fclose($stream);
             	    $count++;
+            	    break;
             	    
             	    
             	 
