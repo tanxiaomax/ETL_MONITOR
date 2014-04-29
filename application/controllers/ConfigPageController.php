@@ -56,11 +56,44 @@ class ConfigPageController extends Zend_Controller_Action
     
     public function monitoringjobinfoAction()
     {
-    	//$form = new Application_Form_MonitoringjobInfo();
+    	$form = new Application_Form_MonitoringjobInfo();
     	
-    	//$request = $this->getRequest();
+    	$request = $this->getRequest();
     	
-    	//$this->view->form = $form;
+    	$this->view->form = $form;
+    }
+    
+    
+    public function getmonitoringjobAction()
+    {
+    	Zend_Layout::getMvcInstance()->disableLayout();
+    	
+    	$q=$_GET["q"];
+//     	$rows = $table->fetchAll(
+//     			'bug_status = "NEW"',
+//     			'bug_id ASC',
+//     			10,
+//     			0
+//     	);
+    	
+    	$where = 'HOSTNAME = "'.$q.'"'; 
+    	$AllJobs = new Application_Model_DbTable_JobsInfo();
+    	$AllJobsInfo = $AllJobs->fetchAll(
+				$where);
+    	//array_unique
+    	for($i = 0; $i < $AllJobsInfo->count(); $i++)
+    	{
+	    	$row = $AllJobsInfo->current();
+	    	$array = $row->toArray();
+	    	
+	    	$projectname[] =  $array['PROJECTNAME'];
+	    	
+	    	$AllJobsInfo->next();
+    	}
+    	
+    	$result = array_unique($projectname);
+    	$result =json_encode($result);
+    	echo $result;
     }
     
 }
