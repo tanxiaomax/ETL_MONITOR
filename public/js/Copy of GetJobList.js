@@ -36,7 +36,7 @@ function creatXMLHttpRequestObject()
 }  
 
 
-function getproject(hostinfo)
+function getproject(hostinfo,projectinfo)
 {
 //	var date = new Date();
 //	var hour = date.getHours();
@@ -53,7 +53,7 @@ function getproject(hostinfo)
 		try
 		{
 			
-			var url="http://etl_monitor.zf/configpage/getmonitoringjob";
+			var url="http://etl_monitor.zf/configpage/getmonitoringproject";
 			url=url+"?q="+hostinfo
 
 			

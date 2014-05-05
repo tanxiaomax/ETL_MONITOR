@@ -5,201 +5,183 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US">
 <head>
   <link href="/style.css" rel="stylesheet" type="text/css"/>
+  <script src="/js/jquery-2.1.0.min.js"></script>
+  <script type="text/javascript" src="/js/GetJobList.js"></script>
   <title>Welcome</title>
 </head>
 
 <body>
   <div id="header">
-        <img id="logo" title="Centreon Logo" src="/Images/centreon.png" />
-        <div id="resume_light">
-          <table border="0" cellspacing="0" cellpadding="0">
-            <tbody>
-              <tr>
-                <td>
-                  <table class="Resume_light_table">
-                    <tbody>
-                      <tr class="Resume_light_header" style="white-space:nowrap;">
-                        <td>Hosts</td>
+    <img id="logo" title="Centreon Logo" src="/Images/centreon.png" />
 
-                        <td>Up</td>
+    <div id="resume_light">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td>
+              <table class="Resume_light_table">
+                <tbody>
+                  <tr class="Resume_light_header" style="white-space:nowrap;">
+                    <td>Hosts</td>
 
-                        <td>Down</td>
+                    <td>Up</td>
 
-                        <td>Unreachable</td>
+                    <td>Down</td>
 
-                        <td>Pending</td>
-                      </tr>
+                    <td>Unreachable</td>
 
-                      <tr>
-                        <td>
-                          <div id="hosts" style="background:white;text-align:center">
-                            <a href="main.php?p=20102&amp;o=h&amp;search=">5</a>
-                          </div>
-                        </td>
+                    <td>Pending</td>
+                  </tr>
 
-                        <td style="background:#19EE11">
-                          <div id="host_up" style="background:white;text-align:center">
-                            <a href="main.php?p=20102&amp;o=h_up&amp;search=">5</a>
-                          </div>
-                        </td>
+                  <tr>
+                    <td>
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">5</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#F91E05">
-                          <div id="host_down" style="background:white;text-align:center">
-                            <a href="main.php?p=20102&amp;o=h_down&amp;search=">0</a>
-                          </div>
-                        </td>
+                    <td style="background:#19EE11">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">5</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#82CFD8">
-                          <div id="host_unreachable" style="background:white;text-align:center">
-                            <a href="main.php?p=20102&amp;o=h_unreachable&amp;search=">0</a>
-                          </div>
-                        </td>
+                    <td style="background:#F91E05">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">0</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#2AD1D4">
-                          <div id="host_pending" style="background:white;text-align:center">
-                            <a href="main.php?p=20102&amp;o=h_pending&amp;search=">0</a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
+                    <td style="background:#82CFD8">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">0</a>
+                      </div>
+                    </td>
 
-                <td> </td>
+                    <td style="background:#82CFD8">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">0</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
 
-                <td>
-                  <table class="Resume_light_table">
-                    <tbody>
-                      <tr class="Resume_light_header" style="white-space:nowrap;">
-                        <td>Services</td>
+            <td></td>
 
-                        <td>Ok</td>
+            <td>
+              <table class="Resume_light_table">
+                <tbody>
+                  <tr class="Resume_light_header" style="white-space:nowrap;">
+                    <td>Services</td>
 
-                        <td>Warning</td>
+                    <td>Ok</td>
 
-                        <td>Critical</td>
+                    <td>Warning</td>
 
-                        <td>Unknown</td>
+                    <td>Critical</td>
 
-                        <td>Pending</td>
-                      </tr>
+                    <td>Unknown</td>
 
-                      <tr>
-                        <td>
-                          <div id="service_total" style="background:white;text-align:center">
-                            <a href="main.php?p=20201&amp;o=svc&amp;search=">116</a>
-                          </div>
-                        </td>
+                    <td>Pending</td>
+                  </tr>
 
-                        <td style="background:#13EB3A">
-                          <div id="service_ok" style="background:white;text-align:center">
-                            <a href="main.php?p=20201&amp;o=svc_ok&amp;search=">99</a>
-                          </div>
-                        </td>
+                  <tr>
+                    <td>
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">116</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#F8C706">
-                          <div id="service_warning" style="background:white;text-align:center">
-                            <a href="main.php?p=20201&amp;o=svc_warning&amp;search=">10/12</a>
-                          </div>
-                        </td>
+                    <td style="background:#19EE11">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">100</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#F91D05">
-                          <div id="service_critical" style="background:white;text-align:center">
-                            <a href="main.php?p=20201&amp;o=svc_critical&amp;search=">0/4</a>
-                          </div>
-                        </td>
+                    <td style="background:#F8C706">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">7/9</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#DCDADA">
-                          <div id="service_unknown" style="background:white;text-align:center">
-                            <a href="main.php?p=20201&amp;o=svc_unknown&amp;search=">1/1</a>
-                          </div>
-                        </td>
+                    <td style="background:#F91E05">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">2/6</a>
+                      </div>
+                    </td>
 
-                        <td style="background:#2AD1D4">
-                          <div id="service_pending" style="background:white;text-align:center">
-                            <a href="main.php?p=20201&amp;o=svc_pending&amp;search=">0</a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <span id="linkBar"></span> 
-        <span id="logli">
-            <img alt="Documentation" src="/Images/help.png" /> 
-            <a title="Documentation" href="./main.php?p=1&amp;doc=1&amp;page=toc.html">Documentation</a> 
-            - You are 
-            <a href="./main.php?p=50104&amp;o=c">user-database</a>
-            <a title="Centreon - IT and Network Monitoring" href="#" onclick="return false;">
-                <img title="Please define autologin authentication key in your profile." src="/Images/lock_preferences.png" />
-            </a> 
-            <a href="index.php?disconnect=1">
-                <img alt="Logout" src="/Images/logout.png" />
-            </a> 
-            <a href="index.php?disconnect=1">Logout</a></span>
-        <div id="date">2014/04/25 7:14</div>
-        <div id="centreonMsg"> </div>  
-        <div id="debug"> </div>
+                    <td>
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">1/1</a>
+                      </div>
+                    </td>
+
+                    <td style="background:#82CFD8">
+                      <div id="hosts" style="background:white;text-align:center">
+                        <a href="main.php?p=20102&amp;o=h&amp;search=">0</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div><span id="linkBar"></span><span id="logli"><img alt="Documentation" src="/Images/help.png" /><a title="Documentation"
+    href="http:www.baidu.com">Documentation</a> - You are <a href="http:www.baidu.com">user-database</a><a title=
+    "Centreon - IT and Network Monitoring" href="#" onclick="return false;"><img title=
+    "Please define autologin authentication key in your profile." src="/Images/lock_preferences.png" /></a><a href=
+    "index.php?disconnect=1"><img alt="Logout" src="/Images/logout.png" /></a><a href="http:www.baidu.com">LOG OUT</a></span>
+
+    <div id="date">
+      2014/04/25 7:14
     </div>
-    <div id="forMenuAjax">
-        <div id="menu1_bgcolor">
-          <div id="menu_1">
-            <ul>
-              <li>
-                <div id="menu1_bgimg">
-                  <a onclick="loadAjax(1); return false;" href="#">Home</a>
-                </div>
-              </li>
-              <li>
-                <div id="id_2">
-                  <a onclick="loadAjax(2); return false;" href="#">Monitoring</a>
-                </div>
-              </li>
-              <li>
-                <div id="id_4">
-                  <a onclick="loadAjax(4); return false;" href="#">Views</a>
-                </div>
-              </li>
-              <li>
-                <div id="id_3">
-                  <a onclick="loadAjax(3); return false;" href="#">Reporting</a>
-                </div>
-              </li>
-              <li>
-                <div id="id_5">
-                  <a onclick="loadAjax(5); return false;" href="#">Administration</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="menu_2">
-            <div id="menu2_bgcolor">
-                <span class="separator_menu2"> </span>
-                <span class="span2">
-                    <a style="white-space:nowrap;" href="main.php?p=202">Services</a>
-                </span>
-                <span class="separator_menu2"> | </span>
-                <span class="span2">
-                    <a style="white-space:nowrap;" href="main.php?p=201">Hosts</a>
-                </span>
-                <span class="separator_menu2"> | </span>
-                <span class="span2">
-                    <a style="white-space:nowrap;" href="main.php?p=207">Business Activity</a>
-                </span>
-                <span class="separator_menu2"> | </span>
-                <span class="span2">
-                    <a style="white-space:nowrap;" href="main.php?p=203">Event Logs</a>
-                </span>
+
+    <div id="centreonMsg"></div>
+
+    <div id="debug"></div>
+  </div>
+
+  <div id="forMenuAjax">
+    <div id="menu1_bgcolor">
+      <div id="menu_1">
+        <ul>
+          <li>
+            <div class="menu">
+              <a onclick="loadAjax(1); return false;" href="">Home</a>
             </div>
-        </div>
+          </li>
+
+          <li>
+            <div class="menu">
+              <a onclick="loadAjax(1); return false;" href="http://etl_monitor.zf/monitorpage/monitorresult">Monitoring</a>
+            </div>
+          </li>
+
+          <li>
+            <div class="menu">
+              <a onclick="loadAjax(1); return false;" href="">Administration</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div id="contener">
-        <?php echo $this->layout()->content ?>
+
+    <div id="menu_2">
+      <div id="menu2_bgcolor">
+        <span class="span2"><a style="white-space:nowrap;" href="http://etl_monitor.zf/configpage/hostinfo">Hosts</a></span>
+        <span class="separator_menu2">|</span> <span class="span2"><a style="white-space:nowrap;" href=
+        "http://etl_monitor.zf/configpage/monitoringjobinfo">Jobs</a></span>
+      </div>
     </div>
+  </div>
+
+  <div id="contener">
+   <?php echo $this->layout()->content  ?>
+  </div>
 </body>
 </html>
+

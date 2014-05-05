@@ -61,14 +61,37 @@ class ConfigPageController extends Zend_Controller_Action
     	$request = $this->getRequest();
     	
     	$this->view->form = $form;
+    	
+    	if($this->getRequest()->isPost())
+    	{
+    		if($form->isValid($request->getPost()))
+    		{
+    			$JobList = new Application_Model_DbTable_MonitorJobLists();
+    			$newrow = $JobList->createRow();
+    			$newrow->HOSTNAME = $form->getValue('hosts');
+    			$newrow->PROJECTNAME = $form->getValue('projects');
+    			$newrow->JOBNAME = $form->getValue('jobs');
+    			
+    			
+//     			foreach ($this->getRequest()->getParams() as $f)
+//     			{
+//     				echo $f;
+//     			}
+    			//echo $form->getValue('hosts');
+    			
+    			$newrow->save();
+    			 
+    	
+    		}
+    	}
     }
     
     
-    public function getmonitoringjobAction()
+    public function getmonitoringprojectAction()
     {
     	Zend_Layout::getMvcInstance()->disableLayout();
     	
-    	$q=$_GET["q"];
+    	$q=$this->_request->getParam('q');
 //     	$rows = $table->fetchAll(
 //     			'bug_status = "NEW"',
 //     			'bug_id ASC',
@@ -81,18 +104,46 @@ class ConfigPageController extends Zend_Controller_Action
     	$AllJobsInfo = $AllJobs->fetchAll(
 				$where);
     	//array_unique
-    	for($i = 0; $i < $AllJobsInfo->count(); $i++)
+    	foreach($AllJobsInfo as $jobInfo)
     	{
-	    	$row = $AllJobsInfo->current();
-	    	$array = $row->toArray();
-	    	
-	    	$projectname[] =  $array['PROJECTNAME'];
-	    	
-	    	$AllJobsInfo->next();
+	    	$projectname[] =  $jobInfo->PROJECTNAME;
     	}
     	
     	$result = array_unique($projectname);
-    	$result =json_encode($result);
+    	$result =Zend_Json::encode($result);
+    	echo $result;
+    }
+    
+    
+    public function getmonitoringjobAction()
+    {
+    	Zend_Layout::getMvcInstance()->disableLayout();
+    	 
+    	$host=$this->_request->getParam('host');
+    	$project=$this->_request->getParam('project');
+    	
+	
+    	//     	$rows = $table->fetchAll(
+    	//     			'bug_status = "NEW"',
+    	//     			'bug_id ASC',
+    	//     			10,
+    	//     			0
+    	//     	);
+
+    	$where2 = 'PROJECTNAME = "'.$project.'"';
+    	$where1 = 'HOSTNAME = "'.$host.'"';
+    	$where = $where1 . " AND ". $where2;
+    	$AllJobs = new Application_Model_DbTable_JobsInfo();
+    	$AllJobsInfo = $AllJobs->fetchAll(
+    			$where);
+    	//array_unique
+    	foreach($AllJobsInfo as $jobInfo)
+    	{
+    		$projectname[] =  $jobInfo->JOBNAME;
+    	}
+    	 
+    	$result = array_unique($projectname);
+    	$result =Zend_Json::encode($result);
     	echo $result;
     }
     

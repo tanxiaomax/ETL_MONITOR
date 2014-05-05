@@ -5,6 +5,7 @@ class Application_Form_MonitoringjobInfo extends Zend_Form
 	{
     	$AllJobs = new Application_Model_DbTable_JobsInfo();
     	$AllJobsInfo = $AllJobs->fetchAll();
+    	$this->setName('joblist');
     	
     	
 
@@ -18,6 +19,8 @@ class Application_Form_MonitoringjobInfo extends Zend_Form
 	    	$AllJobsInfo->next();
     	}
     	
+    	 $title = new Zend_Form_Element_Select('title');
+    	 
     	 
     	
     	$this->addElement('select','hosts',
@@ -32,7 +35,10 @@ class Application_Form_MonitoringjobInfo extends Zend_Form
     	$this->addElement('select','projects',
     			array(
     					'label'        => 'Projects',
-    					'style'        => 'width:250px;'
+    					'style'        => 'width:250px;',
+    					'onclick'      => "getjob(hosts.value, this.value)"
+    				
+    					
     			)
     	);
     	
@@ -41,14 +47,18 @@ class Application_Form_MonitoringjobInfo extends Zend_Form
     			array(
     					'label'        => 'jobs',
     					'style'        => 'width:250px;'
+    					
     	
     			)
     	);
     	
     	
+    	
+    	
     	$this->addElement('submit', 'submit', array(
     			'ignore'   => true,
-    			'label'    => 'Submit',
+    			'onclick'  => 'getValue()',
+    			'label'    => 'submit'
     	));
     	
     	

@@ -4,30 +4,28 @@
  
    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
    <table class="table table-striped table-bordered" style="margin:20px;width:600px;"> 
-   <?php  foreach ($this->dbnames as $dbname) : ?>
+ 
         
             
      <?php foreach ($this->monitorresults as $monitorresult) : ?>
       
             <tr>
-            <td><?php echo $dbname; ?></td>
-            <td><?php echo $monitorresult['JOBNAME'] ?></td>
-             
-            <td><?php echo $monitorresult['COMPLETION_TS'] ?></td>
+            <td><?php echo $monitorresult['HOSTNAME'] ?></td>
+            <td><?php echo $monitorresult['JOBNAME'] ?></td>            
+            <td><?php echo $monitorresult['JOBSTATUS'] ?></td>
+            <td><?php echo $monitorresult['LASTRUNTIME'] ?></td>
+            <td><?php echo $monitorresult['INTERIMSTATUS'] ?></td>
             
+            <!--  
             <?php if($monitorresult['COMPLETION_TS'] == 'F') : ?>
                 <td style="background-color:#00CC66; "><?php echo $monitorresult['STATUS'] ?></td>
             <?php endif ?>
             <td style="background-color:#FF0033; "><?php echo $monitorresult['STATUS'] ?></td>
+            -->
             
             </tr>
   
-      <?php endforeach ?>
-         
-   <?php endforeach ?>
-   </table>
     
-        
-     
     
- 
+    <?php endforeach ?>
+     </table>

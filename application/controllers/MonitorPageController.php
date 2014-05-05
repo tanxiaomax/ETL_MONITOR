@@ -6,26 +6,26 @@ class MonitorPageController extends Zend_Controller_Action
 
         
         
-        $DBS = new Application_Model_DbTable_DBS();
-        $DBSInfo = $DBS->fetchAll();
+//         $DBS = new Application_Model_DbTable_DBS();
+//         $DBSInfo = $DBS->fetchAll();
        
  
         
-        for($i = 0; $i < $DBSInfo->count(); $i++)
-        {
-            $row = $DBSInfo->current();
-            $array = $row->toArray();
+//         for($i = 0; $i < $DBSInfo->count(); $i++)
+//         {
+//             $row = $DBSInfo->current();
+//             $array = $row->toArray();
         
-            $options= array('host' => $array['HOSTNAME'],
-            'username' => $array['USERNAME'],
-            'password' => $array['PASSWORD'],
-            'dbname' => $array['DBNAME'],
-            'port' => $array['PORT'],
-            'protocol' => 'TCPIP');
-        	$db = Zend_Db::factory('Db2', $options);
+//             $options= array('host' => $array['HOSTNAME'],
+//             'username' => $array['USERNAME'],
+//             'password' => $array['PASSWORD'],
+//             'dbname' => $array['DBNAME'],
+//             'port' => $array['PORT'],
+//             'protocol' => 'TCPIP');
+//         	$db = Zend_Db::factory('Db2', $options);
         
-        	$MonitorResults = new Application_Model_DbTable_MonitorResults(array('db' => $db
-        				));
+//         	$MonitorResults = new Application_Model_DbTable_MonitorResults(array('db' => $db
+//         				));
         	
         	
         	
@@ -37,7 +37,9 @@ class MonitorPageController extends Zend_Controller_Action
 //         	       'A.ETL_JOB_STATUS.COMPLETION_TS = ETL_JOB_STATUS.COMPLETION_TS',
 //         	'STATUS');
         	       
-         	$rows = $MonitorResults->fetchAll();
+         	//$rows = $MonitorResults->fetchAll();
+         	
+            $MonitorResults = new Application_Model_DbTable_MonitorResults();
         	
         	$MonitorResult =  $MonitorResults->fetchAll();
         	
@@ -49,16 +51,18 @@ class MonitorPageController extends Zend_Controller_Action
                     $monitorarray = $monitorrow->toArray();
                     $resultsarray[] = $monitorarray;
                     $MonitorResult->next();
+                    
                 }
             }           
-         	$DBNAMES[] = $array['DBNAME'];
+         	//$DBNAMES[] = $array['DBNAME'];
         	
-        	$DBSInfo->next();
+        	//$DBSInfo->next();
      
-        }
+        //}
         
-        $this->view->monitorresults = $rows;
-        $this->view->dbnames = $DBNAMES;
+        
+        $this->view->monitorresults = $resultsarray;
+        //$this->view->dbnames = $DBNAMES;
         
        
         
