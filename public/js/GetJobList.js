@@ -52,7 +52,7 @@ function getproject(hostinfo)
 		//var smallClassName=document.getElementById("projects");
 		try
 		{
-			$.getJSON("/configpage/getmonitoringproject/q/" + hostinfo, function(result){
+			$.getJSON("/config-page/getmonitoringproject/q/" + hostinfo, function(result){
 				var projects = "";
 			    $.each(result, function(i, field){
 			    	projects += '<option value="'+ field +'">'+ field + '</option>';
@@ -100,7 +100,7 @@ function getjob(hostinfo,projectinfo)
 
 		try
 		{
-			$.getJSON("/configpage/getmonitoringjob/host/" + hostinfo + "/project/" + projectinfo, function(result){
+			$.getJSON("/config-page/getmonitoringjob/host/" + hostinfo + "/project/" + projectinfo, function(result){
 				var projects = "";
 			    $.each(result, function(i, field){
 			    	projects += '<option value="'+ field +'">'+ field + '</option>';
@@ -124,12 +124,44 @@ function getjob(hostinfo,projectinfo)
 
 function getValue()
 {
-//	var hosts = document.getElementById('hosts');
-//	var projects = document.getElementById('projects');
-//	var jobs = document.getElementById('jobs');
-//	alert(projects.value);
+	try
+	{
+	var host = document.getElementById('hosts');
+	var project = document.getElementById('projects');
+	var job = document.getElementById('jobs');
+	//alert(project.value);
+	
+	var url = window.location.href;
+//	alert("url"+url);
+//	xmlHttp.open("POST",url);
+//	xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+//	
+//	
+//     var jobinfo = "host="+host.value+"&project="+project.value+"&job="+job.value;
+//     jobinfo = encodeURI(encodeURI(jobinfo));
+//     xmlHttp.send(jobinfo);
+//     alert("right");
 	
 	
-	document.getElementById('joblist').submit();
+	
+	 $.post("/config-page/monitoringjobinfo",
+			  {
+			    host:host.value,
+			    project:project.value,
+			    job:job.value
+			  },
+			  function(data,status){
+			    alert(status);
+			  });
+			
+	}
+	catch (e)
+	{
+		alert("error");
+	}
+	
+		
+	
+	
 }
 

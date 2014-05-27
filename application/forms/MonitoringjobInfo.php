@@ -55,7 +55,7 @@ class Application_Form_MonitoringjobInfo extends Zend_Form
     	
     	
     	
-    	$this->addElement('submit', 'submit', array(
+    	$this->addElement('button', 'submit', array(
     			'ignore'   => true,
     			'onclick'  => 'getValue()',
     			'label'    => 'submit'

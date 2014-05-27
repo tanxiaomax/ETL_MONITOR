@@ -6,11 +6,20 @@
    <table class="table table-striped table-bordered" style="margin:20px;width:600px;"> 
  
         
+            <tr>
+            <td>HOST NAME</td>
+            <td>PROJECT NAME</td>
+            <td>JOB NAME</td>
+            <td>JOB STATUS</td>
+            <td>LAST RUN TIME</td>
+            <td>INTERIM STATUS</td>
             
+            </tr>
      <?php foreach ($this->monitorresults as $monitorresult) : ?>
       
             <tr>
             <td><?php echo $monitorresult['HOSTNAME'] ?></td>
+            <td><?php echo $monitorresult['PROJECTNAME'] ?></td>
             <td><?php echo $monitorresult['JOBNAME'] ?></td>            
             <td><?php echo $monitorresult['JOBSTATUS'] ?></td>
             <td><?php echo $monitorresult['LASTRUNTIME'] ?></td>
@@ -20,12 +29,10 @@
             <?php if($monitorresult['COMPLETION_TS'] == 'F') : ?>
                 <td style="background-color:#00CC66; "><?php echo $monitorresult['STATUS'] ?></td>
             <?php endif ?>
-            <td style="background-color:#FF0033; "><?php echo $monitorresult['STATUS'] ?></td>
+            	<td style="background-color:#FF0033; "><?php echo $monitorresult['STATUS'] ?></td>
             -->
             
             </tr>
-  
-    
-    
+
     <?php endforeach ?>
      </table>

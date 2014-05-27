@@ -1,6 +1,6 @@
 <?php
-
-class ConfigPageController extends Zend_Controller_Action
+require_once 'My/Controller.php';
+class ConfigPageController extends My_Controller
 {
     public function hostinfoAction()
     {
@@ -59,30 +59,22 @@ class ConfigPageController extends Zend_Controller_Action
     	$form = new Application_Form_MonitoringjobInfo();
     	
     	$request = $this->getRequest();
-    	
     	$this->view->form = $form;
+
+  	
     	
     	if($this->getRequest()->isPost())
     	{
-    		if($form->isValid($request->getPost()))
-    		{
+    	
+    	
     			$JobList = new Application_Model_DbTable_MonitorJobLists();
     			$newrow = $JobList->createRow();
-    			$newrow->HOSTNAME = $form->getValue('hosts');
-    			$newrow->PROJECTNAME = $form->getValue('projects');
-    			$newrow->JOBNAME = $form->getValue('jobs');
-    			
-    			
-//     			foreach ($this->getRequest()->getParams() as $f)
-//     			{
-//     				echo $f;
-//     			}
-    			//echo $form->getValue('hosts');
-    			
+    			$newrow->HOSTNAME = $this->_request->getParam("host");
+    			$newrow->PROJECTNAME = $this->_request->getParam("project");
+    			$newrow->JOBNAME = $this->_request->getParam("job");		
     			$newrow->save();
     			 
     	
-    		}
     	}
     }
     

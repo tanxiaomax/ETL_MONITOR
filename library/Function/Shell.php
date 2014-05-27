@@ -1,5 +1,6 @@
 
 <?php
+
 class Function_Shell
 {
     
@@ -7,6 +8,7 @@ class Function_Shell
     {
         $bash = 'source ~/.bash_profile';
   
+   
         $connection = ssh2_connect($hostname, 22);
                 
         if (ssh2_auth_password($connection, $username, $password))
@@ -52,7 +54,7 @@ class Function_Shell
             	    $job = trim($job);
             	    if ($job == '')
             	    {
-                        break;
+                        continue;
             	    }
             	    
             	    $stream = ssh2_exec($connection, $bash.';dsjob -jobinfo '. $project .' ' . $job);
@@ -61,11 +63,12 @@ class Function_Shell
             	    stream_set_blocking($errorStream, true);
             	    stream_set_blocking($stream, true);
             	    
+            	    $iscompiled = explode("=", stream_get_contents($errorStream))[1];
             	    
-            	    if(trim(explode("=", stream_get_contents($errorStream))[1])<>'0')
+            	    if(trim($iscompiled)<>'0')
             	    {
             	    	//if the job wasn't compiled...
-            	    	break;
+            	    	continue;
             	    }
         
              	    
@@ -98,8 +101,7 @@ class Function_Shell
             	    fclose($errorStream);
             	    fclose($stream);
             	    $count++;
-            	    break;
-            	    
+            	   
             	    
             	 
             	 

@@ -144,7 +144,7 @@ div.pagination 		{margin-left:40%;}
 #mainnav 			{list-style-type:none;position:absolute;z-index:2;}
 #mainnav li 		{float:left;padding:3px;}
 
-#resume_light, #tactical_light 				{position:absolute;right:10px;top:10px;}
+#resume_light, #tactical_light 				{position:absolute;right:10px;top:5px;}
 .Resume_light_table, .tactical_light_table 		{color:#454545;font-size:8px;}
 .Resume_light_header					{background-image: url("Images/bg_header_bluegray.png");background-position:top left;background-repeat:repeat-x;text-align:center;padding:1px 3px;}
 .Resume_light_table td 						{border:1px SOLID #AEAEAE;padding:2px;}
@@ -705,4 +705,8 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 }
 #mainnav li {
     background-image: url("../Images/bg_header.png");
+}
+#forMenuAjax
+{
+    margin-top: -10px !important;
 }
