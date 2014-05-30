@@ -52,7 +52,7 @@ function getproject(hostinfo)
 		//var smallClassName=document.getElementById("projects");
 		try
 		{
-			$.getJSON("/config-page/getmonitoringproject/q/" + hostinfo, function(result){
+			$.getJSON("/configpage/getmonitoringproject/q/" + hostinfo, function(result){
 				var projects = "";
 			    $.each(result, function(i, field){
 			    	projects += '<option value="'+ field +'">'+ field + '</option>';
@@ -100,7 +100,7 @@ function getjob(hostinfo,projectinfo)
 
 		try
 		{
-			$.getJSON("/config-page/getmonitoringjob/host/" + hostinfo + "/project/" + projectinfo, function(result){
+			$.getJSON("/configpage/getmonitoringjob/host/" + hostinfo + "/project/" + projectinfo, function(result){
 				var projects = "";
 			    $.each(result, function(i, field){
 			    	projects += '<option value="'+ field +'">'+ field + '</option>';
@@ -144,7 +144,7 @@ function getValue()
 	
 	
 	
-	 $.post("/config-page/monitoringjobinfo",
+	 $.post("/configpage/monitoringjobinfo",
 			  {
 			    host:host.value,
 			    project:project.value,
