@@ -35,11 +35,23 @@
 -->
 
  
-<?php $count = 0?>
+<?php $count = 0;
+$DBconunt = 0;
+//require 'Function/Tools.php';
+?>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 <?php foreach ($this->monitorresults as $entrys): ?>
 	
-<table class="table table-striped table-bordered" style="margin:20px;width:600px;">
+   <?php 
+   echo $this->avgvalues[1]['MDVT'];
+//    foreach ($this->avgvalues as $arrays)
+//    {
+  	
+// 		echo arrays;
+  	
+//    }
+   	?>
+<table id= "test" class="table table-striped table-bordered" style="margin:20px;width:600px;">
   <tr>   
     <th>DMMS DATE</th>
     <th>MDES</th>
@@ -62,11 +74,11 @@
 		  
 			  	if ($temp_date <> $entry['DMMS_DATE'])
 			  	{
-			  		if ($count <> 0 && $count <> 7) 
+			  		if ($count <> 0 && $count <> 8) 
 			  		{
 			  			for ($i=0;$i<(8-$count);$i++)
 			  			{
-			  				echo '<td>'.'NULL'.'</td>';
+			  				echo '<td style="background:yellow; " >'.'NULL'.'</td>';
 			  			}
 			  			echo '</tr>';
 			  		}
@@ -77,161 +89,335 @@
 			    $temp_date=$entry['DMMS_DATE'];
 			    
 			    $flag = 1;
+			   
 			    while ($flag)
 			    {
-			    if ($count == 0)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDES')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else 
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    		
-			    		
-			    	}
+			    	
+				    if ($count == 0)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDES')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDES']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else 
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		
+				    		
+				    	}
+				    }
+				    
+				    if ($count == 1)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDLH')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDLH']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		 
+				    	}
+				    }
+				    if ($count == 2)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDMG')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDMG']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    
+				    	}
+				    }
+				    
+				    if ($count == 3)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDSC')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDSC']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		 
+				    	}
+				    }
+				    if ($count == 4)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDTC')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDTC']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		 
+				    	}
+				    }
+				    if ($count == 5)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDTV')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDTV']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		 
+				    	}
+				    }
+				    if ($count == 6)
+				    {
+				    	if($entry['METRIC_ID'] == 'MDVC')
+				    	{
+				    		
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDVC']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			break;
+				    			}
+				    			else 
+				    			{
+				    			
+						    		echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+						    		$count++;
+						    		break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			break;
+				    			
+				    		}
+				    	}
+				    	else
+				    	{
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		 
+				    	}
+				    }
+				    if ($count == 7)
+				    {
+				    	
+				    	if($entry['METRIC_ID'] == 'MDVT')
+				    	{
+				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
+				    		{
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDVC']))
+				    			{
+				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
+					    			$count++;
+					    			echo '</tr>';
+					    			break;
+				    			}
+				    			else
+				    			{
+				    				 
+				    				echo '<td style="background:red;">'.$entry['SUMVALUE'].'</td>';
+				    				$count++;
+				    				echo '</tr>';
+				    				break;
+				    			}
+				    		}
+				    		else 
+				    		{
+				    			echo '<td>'.$entry['SUMVALUE'].'</td>';
+				    			$count++;
+				    			echo '</tr>';
+				    			break;
+				    			
+				    		}
+				    		
+				    	}
+				    	else
+				    	{
+				    		
+				    		echo '<td style="background:yellow; " >'.'NULL'.'</td>';
+				    		$count++;
+				    		break;	 
+				    	}
+				    }
 			    }
-			    
-			    if ($count == 1)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDLH')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    		 
-			    	}
-			    }
-			    if ($count == 2)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDMG')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    
-			    	}
-			    }
-			    
-			    if ($count == 3)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDSC')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    		 
-			    	}
-			    }
-			    if ($count == 4)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDTC')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    		 
-			    	}
-			    }
-			    if ($count == 5)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDTV')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    		 
-			    	}
-			    }
-			    if ($count == 6)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDVC')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		$count++;
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		$count++;
-			    		 
-			    	}
-			    }
-			    if ($count == 7)
-			    {
-			    	if($entry['METRIC_ID'] == 'MDVT')
-			    	{
-			    		echo '<td>'.$entry['SUMVALUE'].'</td>';
-			    		
-			    		echo '</tr>';
-			    		
-			    		break;
-			    	}
-			    	else
-			    	{
-			    		echo '<td>'.'NULL'.'</td>';
-			    		
-			    		echo '</tr>';
-			    		
-			    		break;
-			    		
-			    		 
-			    	}
-			    }
-			    }
-			  
-			  	
 		
-		  	
-		  	
-		  	
-			
 		  	
 		  	?>
 		  	
   		<?php endforeach;?>
   		<?php 
-  		if ($count <> 0 && $count <> 7) 
+  		
+		  		if ($count <> 0) 
 			  		{
 			  			for ($i=0;$i<(8-$count);$i++)
 			  			{
-			  				echo '<td>'.'NULL'.'</td>';
+			  				echo '<td style="background:yellow; " >'.'NULL'.'</td>';
 			  			}
 			  			echo '</tr>';
 			  		}
 		?>
   </table>
+  
+ <?php $DBconunt++;?>
 
 <?php endforeach;?>
+
 
 

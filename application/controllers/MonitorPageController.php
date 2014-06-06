@@ -1,5 +1,6 @@
 <?php
 require_once 'My/Controller.php';
+require_once 'Function/Tools.php';
 class MonitorPageController extends My_Controller
 {
     public function monitorresultAction()
@@ -91,11 +92,16 @@ class MonitorPageController extends My_Controller
     {
 		$DBS = new Application_Model_DbTable_DBs();
 		$DBSInfo = $DBS->fetchAll();
+		
+		$MetricName = array('MDES','MDLH','MDMG','MDSC','MDTC','MDTV','MDVC','MDVT');
+		$MetricAvgVal = array();
+	
     	 
     	
     	
     	        for($i = 0; $i < $DBSInfo->count(); $i++)
     		    {
+    		    		$MetricNum = array();
     		            $row = $DBSInfo->current();
     		            $array = $row->toArray();
     	
@@ -109,8 +115,6 @@ class MonitorPageController extends My_Controller
     	
     		        	$MonitorResults = new Application_Model_DbTable_ReportsSummary(array('db' => $db
     		        				));
-    	 
-    	 
 
 
     		        	$select = $MonitorResults->select();
@@ -127,19 +131,63 @@ class MonitorPageController extends My_Controller
     		
     					//$this->view->monitorresults = $MonitorResults->fetchAll($select);
     		            $REPORTS[] = $MonitorResults->fetchAll($select)->toArray();
+    		            $DBNAMES[] = $array['DBNAME'];
     		            
-    					$DBNAMES[] = $array['DBNAME'];
-    				    $DBSInfo->next();
-    				    
-    				    
-    					
+    		            
+    		            
+    		            for ($j=0;$j<count($MetricName);$j++)
+    		            {
+    		            	$MetricNum[$MetricName[$j]] = Function_Tools::CountMetricID($MetricName[$j],$REPORTS);
+    		            	echo $MetricNum[$MetricName[$j]].'Num';
+    		            	
+    		            	
+    		            	
+    		            }
+    		            
+    		            
+    		            $selectValue = $MonitorResults->select();
+    		            
+    		            $selectValue
+    		            ->from($MonitorResults,array( 'TRIM(METRIC_ID) AS METRIC_ID','sum(metric_value) as SUMVALUE'),'DMMSCOG')
+    		        	->where(' METRIC_ID IN (\'MDLH\',\'MDTV\',\'MDTC\',\'MDES\',\'MDVT\',\'MDSC\',\'MDMG\',\'MDVC\') AND DMMS_DATE BETWEEN CURRENT DATE- 14 DAYS AND CURRENT DATE ')
+    		        	->group('METRIC_ID')
+    		        	->order('METRIC_ID');
+    		            
+    		            $Values[] = $MonitorResults->fetchAll($selectValue)->toArray();
+    		            
+    		            foreach ($Values as $Value)
+    		            {
+    		            	foreach ($Value as $item)
+    		            	{
+    		            		$flag = array_search($item['METRIC_ID'], $MetricNum);
+    		            		
+    		            		//echo $MetricNum[$item['METRIC_ID']].'aaa';
+    		            		if ($MetricNum[$item['METRIC_ID']] == 0)
+    		            		{
 
-				
+    		            			$MetricAvgVal[$i][$item['METRIC_ID']] = 'NULL';
+    		            				
+    		            		}
+    		            		else
+    		            		{
+    		            		
+    		            			$MetricAvgVal[$i][$item['METRIC_ID']]=$item['SUMVALUE']/$MetricNum[$item['METRIC_ID']];
+    		            		}
+    		            		
+    		            	
+    		            	}
+    		            }
+						
+    		            
+    		      
+    				    $DBSInfo->next();
+
     		    
     		    }
     		    
     		    $this->view->monitorresults = $REPORTS;
     		    $this->view->dbnames=$DBNAMES;
+    		    $this->view->avgvalues= $MetricAvgVal;
     		    
     		    
     		     
