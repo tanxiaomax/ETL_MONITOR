@@ -1,6 +1,7 @@
 <?php
 require_once 'My/Controller.php';
 require_once 'Function/Tools.php';
+require_once 'Function/Shell.php';
 class MonitorPageController extends My_Controller
 {
     public function monitorresultAction()
@@ -188,11 +189,56 @@ class MonitorPageController extends My_Controller
     		    $this->view->monitorresults = $REPORTS;
     		    $this->view->dbnames=$DBNAMES;
     		    $this->view->avgvalues= $MetricAvgVal;
+    		    	    
     		    
-    		    
-    		     
-    		    
-    		    
+    }
+    
+    
+    public function detailmonresultAction()
+    {
+    	
+    	$SetScheduleInfo = new Function_Shell();
+    	$form = new Application_Form_ScheduleInfo();
+    	$request = $this->getRequest();
+    	
+    	$hostsinfo = new Application_Model_DbTable_Hosts();
+    	
+    	$host=$this->_request->getParam('host');
+    	$project=$this->_request->getParam('project');
+    	$job=$this->_request->getParam('job');
+    	$scheduletime = $this->_request->getParam('SCHTIME');
+    	
+    	$HisJobsInfo = new Application_Model_DbTable_HisJobsInfo();
+    	
+    	$where3 = 'JOBNAME = "'.$job.'"';
+    	$where2 = 'PROJECTNAME = "'.$project.'"';
+    	$where1 = 'HOSTNAME = "'.$host.'"';
+    	
+    	$where = $where1 . " AND ". $where2 . " AND " . $where3;
+    	$AllJobs = new Application_Model_DbTable_JobsInfo();
+    	 
+    	$HisJobInfo = $HisJobsInfo->fetchAll(
+    			$where,'LASTRUNTIME ASC');
+    	
+    	$where = 'HOSTNAME = "'.$host.'"';
+
+    	$userinfo = $hostsinfo->fetchRow($where);
+    	
+    	
+    	$this->view->jobrunresult = $HisJobInfo;
+    	$this->view->scheduletime = $scheduletime;
+    	$this->view->form = $form;
+    	
+    	
+    	if($this->getRequest()->isPost())
+    	{
+    		if($form->isValid($request->getPost()))
+    		{    		 			 	
+    		 	$SetScheduleInfo->SetScheduleTime($host,$project,$job, $userinfo->USER, $userinfo->PASSWORD, $scheduletime); 	
+    		}
+    	}
+    	
+
     }
        
            
