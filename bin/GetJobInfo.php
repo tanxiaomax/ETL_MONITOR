@@ -33,6 +33,7 @@ require_once APPLICATION_PATH . "/../library/Function/Shell.php";
 $JobsInfo = new Function_Shell();
 $HostsInfo = new Application_Model_DbTable_Hosts();
 $TAllJobsInfo = new Application_Model_DbTable_JobsInfo();
+$HisAlljobsInfo = new Application_Model_DbTable_HisJobsInfo();
 
 
 $HostInfo =  $HostsInfo->fetchAll();
@@ -50,35 +51,78 @@ if($HostInfo != NULL)
         //echo $hostarray['USER']."\n";
         //echo $hostarray['PASSWORD']."\n";
         
+        
+          
         $Results = $JobsInfo->GetJobInfo($hostarray['IP'],$hostarray['USER'],$hostarray['PASSWORD']);
         foreach ($Results as $rows)
         {
+        	
             //echo $Result['project'].' ' .$Result['job'].' ' .$Result['status'].' ' .$Result['lastruntime'].' ' .$Result['interimstatus'];
             if($TAllJobsInfo->find($hostarray['HOSTNAME'],$rows[0],$rows[1])->valid())
             {
                 $data = array(
-                		'JOBSTATUS'      => $rows[2],
+                		'JOBSTATUS'     	 => $rows[2],
                 		'INTERIMSTATUS'      => $rows[3],
-                        'LASTRUNTIME'        => $rows[4]
+                        'LASTRUNTIME'        => $rows[4],
+                		'SCHEDULETIME'       => $rows[5]
                 );
+                
+               
                 
                $where = $TAllJobsInfo->getAdapter()->quoteInto('HOSTNAME = ?', $hostarray['HOSTNAME'])
                  . $TAllJobsInfo->getAdapter()->quoteInto('AND PROJECTNAME = ?',$rows[0]) 
                       . $TAllJobsInfo->getAdapter()->quoteInto('AND JOBNAME = ?',$rows[1]) ;
                
+               if ($TAllJobsInfo->find($hostarray['HOSTNAME'],$rows[0],$rows[1])->count() == 1) 
+               {
+               		foreach ($TAllJobsInfo->find($hostarray['HOSTNAME'],$rows[0],$rows[1]) as $item)
+               		{
+               			echo $item['LASTRUNTIME'] ."\n".$rows[4]."\n".$item['JOBSTATUS']."\n".$rows[2]."\n";
+               			if (trim($item['LASTRUNTIME']) != trim($rows[4]) || trim($item['JOBSTATUS']) != trim($rows[2]))
+               			{
+               			
+               				$newrow = $HisAlljobsInfo->createRow();
+               				
+               				$newrow -> HOSTNAME = $hostarray['HOSTNAME'];
+               				$newrow -> PROJECTNAME = $rows[0];
+                			$newrow -> JOBNAME = $rows[1];
+                			$newrow -> JOBSTATUS = $rows[2];
+                			$newrow -> LASTRUNTIME = $rows[4];
+        					
+                			
+                			$newrow -> save();	
+               					
+               			} 
+               		}
+               }
+              
                $TAllJobsInfo->update($data, $where);
+               
                 
             }        
                      
 //             $newrow = new Application_Model_JobInfo(array("table"=>$TAllJobsInfo));
             else 
             {
+          
+            	
+            	 
                 $newrow = $TAllJobsInfo -> createRow();
                 $newrow -> HOSTNAME = $hostarray['HOSTNAME'];
                 $newrow -> PROJECTNAME = $rows[0];
                 $newrow -> JOBNAME = $rows[1];
                 $newrow -> JOBSTATUS = $rows[2];
                 $newrow -> INTERIMSTATUS = $rows[3];
+                $newrow -> LASTRUNTIME = $rows[4];
+                $newrow -> SCHEDULETIME = $rows[5];
+                $newrow -> save();
+                
+                
+                $newrow = $HisAlljobsInfo->createRow();
+                $newrow -> HOSTNAME = $hostarray['HOSTNAME'];
+                $newrow -> PROJECTNAME = $rows[0];
+                $newrow -> JOBNAME = $rows[1];
+                $newrow -> JOBSTATUS = $rows[2];
                 $newrow -> LASTRUNTIME = $rows[4];
                 $newrow -> save();
                 

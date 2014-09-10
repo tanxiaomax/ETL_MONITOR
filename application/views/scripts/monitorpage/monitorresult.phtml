@@ -14,17 +14,24 @@
             <td>JOB STATUS</td>
             <td>LAST RUN TIME</td>
             <td>INTERIM STATUS</td>
+            <td>SCHEDULE TIME</td>
             
             </tr>
      <?php foreach ($this->monitorresults as $monitorresult) : ?>
       
             <tr>
-            <td><?php echo $monitorresult['HOSTNAME'] ?></td>
+            <td><a href = <?php 
+            		$str= "/monitorpage/detailmonresult/host/".$monitorresult['HOSTNAME']."/project/".$monitorresult['PROJECTNAME']."/job/"
+   					.$monitorresult['JOBNAME']."/SCHTIME/".$monitorresult['SCHEDULETIME'];
+					$str = str_replace(' ', '%20', $str);
+            		echo $str;  ?>><?php echo $monitorresult['HOSTNAME'] ?></a></td>
             <td><?php echo $monitorresult['PROJECTNAME'] ?></td>
             <td><?php echo $monitorresult['JOBNAME'] ?></td>            
             <td><?php echo $monitorresult['JOBSTATUS'] ?></td>
             <td><?php echo $monitorresult['LASTRUNTIME'] ?></td>
             <td><?php echo $monitorresult['INTERIMSTATUS'] ?></td>
+            <td><?php 
+            echo  Function_Tools::DisplayCrontabTime ($monitorresult['SCHEDULETIME'])  ?></td>
             
             <!--  
             <?php if($monitorresult['COMPLETION_TS'] == 'F') : ?>

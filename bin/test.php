@@ -30,6 +30,17 @@ $application = new Zend_Application(
 );
 $application->bootstrap();
 
-$emaiUserTable = new Model_DbTable_Emailuser();
-$allUsers = $emaiUserTable->fetchAll("");
+require_once 'Function/Shell.php';
 
+$test = new Function_Shell();
+
+// $str = '0 6 * * * /home/dsadm/runjob.sh DMMS_ETL pre_step2';
+
+// //stripos($item,$projectname) != FALSE && stripos($item,$jobname) != FALSE
+// //&& stripos($item,$scheduletime) != FALSE
+// if(stripos($str,'dfdaadf') == FALSE)
+// {
+// ECHO 1;
+// }
+
+$test->DelScheduleTime('dsc-dev-data','DMMS_ETL','pre_step2','dsadm','dsadm123','0 6 * * *');

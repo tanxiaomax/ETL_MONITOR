@@ -61,11 +61,11 @@ class ConfigPageController extends My_Controller
     	$request = $this->getRequest();
     	$this->view->form = $form;
 
-  	
+  		
     	
     	if($this->getRequest()->isPost())
     	{
-    	
+    			
     	
     			$JobList = new Application_Model_DbTable_MonitorJobLists();
     			$newrow = $JobList->createRow();
@@ -114,7 +114,7 @@ class ConfigPageController extends My_Controller
     	$host=$this->_request->getParam('host');
     	$project=$this->_request->getParam('project');
     	
-	
+	    
     	//     	$rows = $table->fetchAll(
     	//     			'bug_status = "NEW"',
     	//     			'bug_id ASC',
@@ -126,6 +126,7 @@ class ConfigPageController extends My_Controller
     	$where1 = 'HOSTNAME = "'.$host.'"';
     	$where = $where1 . " AND ". $where2;
     	$AllJobs = new Application_Model_DbTable_JobsInfo();
+    	
     	$AllJobsInfo = $AllJobs->fetchAll(
     			$where);
     	//array_unique

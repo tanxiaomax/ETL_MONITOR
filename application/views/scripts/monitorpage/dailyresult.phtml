@@ -42,15 +42,7 @@ $DBconunt = 0;
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 <?php foreach ($this->monitorresults as $entrys): ?>
 	
-   <?php 
-   echo $this->avgvalues[1]['MDVT'];
-//    foreach ($this->avgvalues as $arrays)
-//    {
-  	
-// 		echo arrays;
-  	
-//    }
-   	?>
+
 <table id= "test" class="table table-striped table-bordered" style="margin:20px;width:600px;">
   <tr>   
     <th>DMMS DATE</th>
@@ -67,11 +59,12 @@ $DBconunt = 0;
   
   		<?php $temp_date = 'init';
  			  $count = 0;
+ 			 
  		?>
 	  	<?php foreach ($entrys as $entry)   :?>
 		  	<?php 
-		        
-		  
+		     
+		  	
 			  	if ($temp_date <> $entry['DMMS_DATE'])
 			  	{
 			  		if ($count <> 0 && $count <> 8) 
@@ -83,9 +76,12 @@ $DBconunt = 0;
 			  			echo '</tr>';
 			  		}
 			  		echo '<tr>';
+			  		
 			  		echo '<td>'.$entry['DMMS_DATE'].'</td>';
 			  		$count=0;
 			  	}
+			  	
+			  	
 			    $temp_date=$entry['DMMS_DATE'];
 			    
 			    $flag = 1;
@@ -362,7 +358,7 @@ $DBconunt = 0;
 				    	{
 				    		if(array_key_exists($DBconunt,$this->avgvalues) && !Function_Tools::IsWeekend($temp_date))
 				    		{
-				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDVC']))
+				    			if (Function_Tools::IsAccept($entry['SUMVALUE'], $this->avgvalues[$DBconunt]['MDVT']))
 				    			{
 				    				echo '<td>'.$entry['SUMVALUE'].'</td>';
 					    			$count++;

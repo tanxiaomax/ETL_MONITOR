@@ -27,7 +27,8 @@ class Application_Form_MonitoringjobInfo extends Zend_Form
     	array(
     	'label'        => 'Hosts',
     	'style'        => 'width:250px;',
-    	'onchange'      => "getproject(this.value)",
+    	'onclick'      => "getproject(this.value)",
+    	
     	'multiOptions' =>  $hostname
     		)
     	);
