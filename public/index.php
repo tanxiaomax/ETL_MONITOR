@@ -23,5 +23,14 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+
+require_once 'My/Acl.php';
+require_once APPLICATION_PATH.'/controllers/Plugin/PermissionVerify.php';
+$acl = new Acl();//自定义的Acl类
+
+$fc = Zend_Controller_Front::getInstance();//取得Zend_Controller_Front类实例
+$fc -> registerPlugin(new PermissionVerify($acl));
+
+
 $application->bootstrap()
             ->run();

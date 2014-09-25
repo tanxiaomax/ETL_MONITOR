@@ -17,10 +17,7 @@ class My_Controller extends Zend_Controller_Action {
     	 * 2 Failed
     	 * 3 Unknown
     	 */
-    	 
-    	
-    	
-    	 
+	 
     	
     	foreach ($MonitorList as $job)
     	{
@@ -79,7 +76,6 @@ class My_Controller extends Zend_Controller_Action {
     	
     	$this->view->overviewresults = $resultsarray;
     	
-    	//$this->view->monitorresults = $resultsarray;
     	
     }
 		

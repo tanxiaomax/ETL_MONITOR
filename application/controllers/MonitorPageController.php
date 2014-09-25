@@ -6,7 +6,16 @@ class MonitorPageController extends My_Controller
 {
     public function monitorresultAction()
     {
-
+			$test1 = bindec(1000)."\n";
+			$test2 = bindec(1111)."\n";
+			
+			echo $test1;
+			echo $test2;
+			
+			$testresult = bindec(1000)|bindec(1111);
+			echo $testresult."\n";
+			
+			echo  decbin((int)$test1 | (int)$test2). "abcd";
         
         
 //         $DBS = new Application_Model_DbTable_DBS();
